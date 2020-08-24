@@ -34,12 +34,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initRecycleViews();
+    }
+
+    private void initRecycleViews(){
         ArrayList<PizzaRecipeItem> pizzaRecipeItems =
-                new ArrayList<PizzaRecipeItem>(10);
+                new ArrayList<PizzaRecipeItem>();
 
         for(int i=0;i<imageResourceArray.length;i++){
             pizzaRecipeItems.add(new PizzaRecipeItem(imageResourceArray[i],titleArray[i],
-                   descriptionArray[i], recipeArray[i]));
+                    descriptionArray[i], recipeArray[i]));
         }
 
         recyclerView = findViewById(R.id.recyclerView);

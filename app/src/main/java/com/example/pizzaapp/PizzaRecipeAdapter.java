@@ -17,6 +17,9 @@ public class PizzaRecipeAdapter
     ArrayList<PizzaRecipeItem> pizzaRecipeItems;
 
     public PizzaRecipeAdapter(ArrayList<PizzaRecipeItem> arrayList){
+        /*
+        передаем массив с результатом для заполнения CardView
+         */
         pizzaRecipeItems = arrayList;
     }
 
@@ -30,6 +33,9 @@ public class PizzaRecipeAdapter
         public TextView textView2;
 
         public PizzaRecipeViewHolder(@NonNull View itemView) {
+            /*
+        определяем элементы который будут находится в CardView
+         */
             super(itemView);
             this.imageView = itemView.findViewById(R.id.pizzaImageView);
             this.textView1 = itemView.findViewById(R.id.titleImageView);
@@ -46,14 +52,19 @@ public class PizzaRecipeAdapter
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.pizza_recipe_item, parent, false);// указываем id карточки
 
+        // создаем CardView
         PizzaRecipeViewHolder pizzaRecipeViewHolder = new PizzaRecipeViewHolder(view);
         return pizzaRecipeViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull PizzaRecipeViewHolder holder, int position) {
+        /*
+        Подстановка данных в CardView
+         */
         PizzaRecipeItem pizzaRecipeItem = pizzaRecipeItems.get(position);
 
+        // с помощью геттеров получаем данные из PizzaRecipeItem
         holder.imageView.setImageResource(pizzaRecipeItem.getImageResource());
         holder.textView1.setText(pizzaRecipeItem.getTitle());
         holder.textView2.setText(pizzaRecipeItem.getDescription());

@@ -1,8 +1,12 @@
 package com.example.pizzaapp;
 
 public class PizzaRecipeItem {
+    /*
+    Класс для хранения результатов для заполнения Card View в
+    Recycle View
+     */
 
-    private int imageResource;
+    private int imageResource;// id изображения
     private String title;
     private String description;
     private String recipe;
@@ -14,6 +18,9 @@ public class PizzaRecipeItem {
         this.recipe = recipe;
     }
 
+    /*
+    getters and setters
+     */
     public String getRecipe() {
         return recipe;
     }

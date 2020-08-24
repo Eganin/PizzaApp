@@ -1,6 +1,9 @@
 package com.example.pizzaapp;
 
 public class Utils {
+    /*
+    хранение значений
+     */
 
     public static final String PIZZA_1_TITLE = "Caramelised onion & goat's cheese pizza";
     public static final String PIZZA_1_DESCRIPTION = "Make a veggie pizza that's healthy and low-fat instead of ordering a takeaway. This easy recipe uses goat's cheese for tang while the onions give it sweetness..";
