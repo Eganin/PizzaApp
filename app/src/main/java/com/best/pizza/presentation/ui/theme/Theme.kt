@@ -1,4 +1,4 @@
-package com.best.pizza.ui.theme
+package com.best.pizza.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
