@@ -1,9 +1,8 @@
 package com.best.data.datasource
 
+import com.best.data.local.database.ProductDatabase
 import com.best.data.local.models.ProductDetail
 import com.best.data.mapper.toProductInfo
-import com.best.data.remote.ImagesApi
-import com.best.domain.datasource.LocalDataSource
 import com.best.domain.models.ProductInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,8 +10,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
-    val api: ImagesApi
+    db: ProductDatabase
 ) : LocalDataSource {
+
+    private val productInfoDao = db.productInfoDao
 
     private val productDetails = listOf(
         ProductDetail(
@@ -69,21 +70,18 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getDetailInfoProduct(): Flow<List<ProductInfo>> {
+    override suspend fun getDetailInfoProduct(): Flow<List<ProductDetail>> {
         return flow {
-            withContext(defaultDispatcher) {
-                val productInfoList = mutableListOf<ProductInfo>()
-                productDetails.forEach { product ->
-                    val imageInfo = api.getImageForPizza().imageLink
-                    productInfoList.add(product.toProductInfo(imageLink = imageInfo))
-                }
-                emit(productInfoList)
-            }
+            emit(productDetails)
         }
     }
 
     override suspend fun getDetailInfoProductFromDb(): Flow<List<ProductInfo>> {
-        TODO("Not yet implemented")
+        return flow {
+            withContext(defaultDispatcher){
+                emit(productInfoDao.getAllProductInfo().map { it.toProductInfo() })
+            }
+        }
     }
 
 }
