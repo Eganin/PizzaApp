@@ -8,7 +8,7 @@ interface LocalDataSource : DataSource{
 
     fun getCurrentCity() : String
 
-    suspend fun getDetailInfoProductFromDb(imageLink : String): List<ProductInfo>
+    suspend fun getDetailInfoProductFromDb(fetchFromRemote : Boolean,downloadImage : suspend()->String): List<ProductInfo>
 
-    suspend fun generateDetailInfoProduct(imageLink: String)
+    suspend fun generateDetailInfoProduct(downloadImage : suspend()->String)
 }

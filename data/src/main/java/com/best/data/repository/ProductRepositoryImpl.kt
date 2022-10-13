@@ -1,5 +1,6 @@
 package com.best.data.repository
 
+import android.util.Log
 import com.best.data.datasource.LocalDataSource
 import com.best.data.datasource.RemoteDataSource
 import com.best.data.local.database.ProductDatabase
@@ -22,13 +23,9 @@ class ProductRepositoryImpl @Inject constructor(
     override fun getProductList(fetchFromRemote: Boolean): Flow<Resource<List<ProductInfo>>> {
         return flow {
             bodyForDataLoading {
-                val result = if (fetchFromRemote) {
-                    val remoteImage = remoteDataSource.getImage()
-                    localDataSource.getDetailInfoProductFromDb(imageLink = remoteImage.imageLink)
-                } else {
-                    localDataSource.getDetailInfoProductFromDb(imageLink = "")
+                localDataSource.getDetailInfoProductFromDb(fetchFromRemote=fetchFromRemote) {
+                    remoteDataSource.getImage().imageLink
                 }
-                result
             }
         }
     }

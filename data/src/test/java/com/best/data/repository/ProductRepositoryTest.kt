@@ -20,7 +20,7 @@ internal class ProductRepositoryTest : TestData() {
     fun `get product list if remote false`() = runTest {
         repository.getProductList(fetchFromRemote = false).collect {
             if (it is Resource.Success) {
-                assertThat(it.data).isEqualTo(testproductDetailsList)
+                assertThat(it.data).isEqualTo(testproductDetailsList.map { it.copy(imageLink = testLink) })
             }
         }
     }

@@ -71,23 +71,34 @@ class LocalDataSourceImpl @Inject constructor(
         return "Москва"
     }
 
-    override suspend fun getDetailInfoProductFromDb(imageLink: String): List<ProductInfo> =
+    override suspend fun getDetailInfoProductFromDb(fetchFromRemote: Boolean,downloadImage: suspend () -> String): List<ProductInfo> =
         withContext(defaultDispatcher) {
-            val result = productInfoDao.getAllProductInfo().map { it.toProductInfo(imageLink = imageLink) }
-            val answer = result.ifEmpty {
-                generateDetailInfoProduct(imageLink = imageLink)
-                productInfoDao.getAllProductInfo().map { it.toProductInfo(imageLink = imageLink) }
+            val resultFromDb = productInfoDao.getAllProductInfo().map {
+                if (fetchFromRemote){
+                    it.toProductInfo().copy(imageLink = downloadImage())
+                }else{
+                    it.toProductInfo()
+                }
             }
+            val answer = resultFromDb.ifEmpty {
+                generateDetailInfoProduct {
+                    downloadImage()
+                }
+                productInfoDao.getAllProductInfo().map {
+                    it.toProductInfo()
+                }
+            }
+
             answer
         }
 
-    override suspend fun generateDetailInfoProduct(imageLink: String) =
+    override suspend fun generateDetailInfoProduct(downloadImage : suspend()->String) =
         withContext(defaultDispatcher) {
-            val listProductInfo = productDetails.map {
-                it.toProductInfo(imageLink = imageLink)
-                    .toProductInfoEntity()
-            }
-            productInfoDao.insertProductInfo(productInfoEntities = listProductInfo)
+            productInfoDao.insertProductInfo(
+                productInfoEntities = productDetails.map {
+                    it.toProductInfoEntity(downloadImage())
+                }
+            )
         }
 
 }

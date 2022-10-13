@@ -21,21 +21,21 @@ internal class LocalDataSourceTest : TestData(){
 
     @Test
     fun `test get detail info for product if link is not empty`() = runTest {
-        assertThat(localDataSource.getDetailInfoProductFromDb(imageLink = "")).isEqualTo(
+        assertThat(localDataSource.getDetailInfoProductFromDb(fetchFromRemote = false){""}).isEqualTo(
             testproductDetailsList
         )
     }
 
     @Test
     fun `test get detail info for product if link is empty`() = runTest {
-        assertThat(localDataSource.getDetailInfoProductFromDb(imageLink = "https://")).isEqualTo(
+        assertThat(localDataSource.getDetailInfoProductFromDb(fetchFromRemote = false){"https://"}).isEqualTo(
             testproductDetailsList.map { it.copy(imageLink = "https://") })
     }
 
     @Test
     fun `test get detail info for product if database is empty`() = runTest {
         testDao.clearProductInfo()
-        assertThat(localDataSource.getDetailInfoProductFromDb(imageLink = "")).isEqualTo(
+        assertThat(localDataSource.getDetailInfoProductFromDb(fetchFromRemote = false){""}).isEqualTo(
             testproductDetailsList
         )
     }

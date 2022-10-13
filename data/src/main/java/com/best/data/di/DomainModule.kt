@@ -8,10 +8,14 @@ import com.best.data.datasource.RemoteDataSource
 import com.best.data.datasource.RemoteDataSourceImpl
 import com.best.data.local.database.ProductDatabase
 import com.best.data.remote.ImagesApi
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -33,15 +37,18 @@ object DomainModule {
             )
             .build()
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
-    fun provideImagesApi(client: OkHttpClient): ImagesApi =
-        Retrofit.Builder()
+    fun provideImagesApi(client: OkHttpClient): ImagesApi{
+        val json = Json { ignoreUnknownKeys = true }
+        return Retrofit.Builder()
             .baseUrl("https://foodish-api.herokuapp.com/api/")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .client(client)
             .build()
             .create()
+    }
 
     @Provides
     @Singleton
