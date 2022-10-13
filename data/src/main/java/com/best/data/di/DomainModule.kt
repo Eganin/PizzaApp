@@ -57,7 +57,7 @@ object DomainModule {
     @Provides
     @Singleton
     fun provideLocalDataSource(db: ProductDatabase): LocalDataSource {
-        return LocalDataSourceImpl(db = db)
+        return LocalDataSourceImpl(productInfoDao = db.productInfoDao)
     }
 
     @Provides
