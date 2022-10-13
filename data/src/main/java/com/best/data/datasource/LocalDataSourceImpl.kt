@@ -4,8 +4,6 @@ import com.best.data.local.database.ProductDatabase
 import com.best.data.local.models.ProductDetail
 import com.best.data.mapper.toProductInfo
 import com.best.domain.models.ProductInfo
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -58,29 +56,21 @@ class LocalDataSourceImpl @Inject constructor(
         ),
     )
 
-    override suspend fun getCategory(): Flow<List<String>> {
-        return flow {
-            emit(listOf("Пицца", "Комбо", "Напитки", "Десерты"))
-        }
+    override fun getCategory(): List<String> {
+        return listOf("Пицца", "Комбо", "Напитки", "Десерты")
     }
 
-    override suspend fun getCurrentCity(): Flow<String> {
-        return flow {
-            emit("Москва")
-        }
+    override fun getCurrentCity(): String {
+        return "Москва"
     }
 
-    override suspend fun getDetailInfoProduct(): Flow<List<ProductDetail>> {
-        return flow {
-            emit(productDetails)
-        }
+    override fun getDetailInfoProduct(): List<ProductDetail> {
+        return productDetails
     }
 
-    override suspend fun getDetailInfoProductFromDb(): Flow<List<ProductInfo>> {
-        return flow {
-            withContext(defaultDispatcher){
-                emit(productInfoDao.getAllProductInfo().map { it.toProductInfo() })
-            }
+    override suspend fun getDetailInfoProductFromDb():List<ProductInfo> {
+        return withContext(defaultDispatcher){
+            productInfoDao.getAllProductInfo().map { it.toProductInfo() }
         }
     }
 

@@ -2,6 +2,10 @@ package com.best.data.di
 
 import android.app.Application
 import androidx.room.Room
+import com.best.data.datasource.LocalDataSource
+import com.best.data.datasource.LocalDataSourceImpl
+import com.best.data.datasource.RemoteDataSource
+import com.best.data.datasource.RemoteDataSourceImpl
 import com.best.data.local.database.ProductDatabase
 import com.best.data.remote.ImagesApi
 import dagger.Module
@@ -48,5 +52,17 @@ object DomainModule {
             ProductDatabase.NAME_DATABASE
         ).fallbackToDestructiveMigration()
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(db: ProductDatabase): LocalDataSource {
+        return LocalDataSourceImpl(db = db)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(api: ImagesApi): RemoteDataSource {
+        return RemoteDataSourceImpl(api = api)
     }
 }
