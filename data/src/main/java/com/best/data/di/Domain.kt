@@ -2,7 +2,7 @@ package com.best.data.di
 
 import android.app.Application
 import androidx.room.Room
-import com.best.data.local.ProductDatabase
+import com.best.data.local.database.ProductDatabase
 import com.best.data.remote.ImagesApi
 import dagger.Module
 import dagger.Provides
