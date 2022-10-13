@@ -1,5 +1,8 @@
 package com.best.data.di
 
+import android.app.Application
+import androidx.room.Room
+import com.best.data.local.ProductDatabase
 import com.best.data.remote.ImagesApi
 import dagger.Module
 import dagger.Provides
@@ -14,11 +17,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object Domain {
+object DomainModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient():OkHttpClient =
+    fun provideHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor()
@@ -28,11 +31,22 @@ object Domain {
 
     @Provides
     @Singleton
-    fun provideImagesApi(client: OkHttpClient):ImagesApi=
+    fun provideImagesApi(client: OkHttpClient): ImagesApi =
         Retrofit.Builder()
             .baseUrl("https://foodish-api.herokuapp.com/api/")
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
             .create()
+
+    @Provides
+    @Singleton
+    fun provideProductDatabase(app: Application): ProductDatabase {
+        return Room.databaseBuilder(
+            app,
+            ProductDatabase::class.java,
+            ProductDatabase.NAME_DATABASE
+        ).fallbackToDestructiveMigration()
+            .build()
+    }
 }
