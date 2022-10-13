@@ -1,6 +1,5 @@
 package com.best.data.datasource
 
-import com.best.data.local.models.ProductDetail
 import com.best.domain.models.ProductInfo
 
 interface LocalDataSource : DataSource{
@@ -9,9 +8,7 @@ interface LocalDataSource : DataSource{
 
     fun getCurrentCity() : String
 
-    fun getDetailInfoProduct():List<ProductDetail>
+    suspend fun getDetailInfoProductFromDb(imageLink : String): List<ProductInfo>
 
-    suspend fun getDetailInfoProductFromDb(): List<ProductInfo>
-
-
+    suspend fun generateDetailInfoProduct(imageLink: String)
 }
