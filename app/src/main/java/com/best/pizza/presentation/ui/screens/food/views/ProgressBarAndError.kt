@@ -34,7 +34,7 @@ fun ProgressBarAndError(state: FoodPageState) {
 
 @Preview(showBackground = true)
 @Composable
-fun ProgressBarAndErrorIfLoadingPreview() {
+private fun ProgressBarAndErrorIfLoadingPreview() {
     PizzaTheme {
         ProgressBarAndError(state = FoodPageState(isLoading = true))
     }
@@ -42,7 +42,7 @@ fun ProgressBarAndErrorIfLoadingPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun ProgressBarAndErrorIfErrorMessagePreview() {
+private fun ProgressBarAndErrorIfErrorMessagePreview() {
     PizzaTheme {
         ProgressBarAndError(state = FoodPageState(error = "Unknown error"))
     }

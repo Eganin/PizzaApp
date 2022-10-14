@@ -132,7 +132,7 @@ enum class DestinationsPage {
 }
 @Preview(showBackground = true)
 @Composable
-fun BottomBarItemIsSelectedPreview() {
+private fun BottomBarItemIsSelectedPreview() {
     PizzaTheme {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             GetIconForBottomBar(screen = DestinationsPage.FoodPage.name, isSelected = true)
@@ -143,7 +143,7 @@ fun BottomBarItemIsSelectedPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun BottomBarItemIsNotSelectedPreview() {
+private fun BottomBarItemIsNotSelectedPreview() {
     PizzaTheme {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             GetIconForBottomBar(screen = DestinationsPage.FoodPage.name, isSelected = false)

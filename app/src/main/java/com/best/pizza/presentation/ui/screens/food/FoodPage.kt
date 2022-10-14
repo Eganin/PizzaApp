@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.best.pizza.presentation.ui.screens.food.views.CategoriesRow
 import com.best.pizza.presentation.ui.screens.food.views.DiscountImagesRow
 import com.best.pizza.presentation.ui.screens.food.views.FoodToolBar
 import com.best.pizza.presentation.ui.screens.food.views.ProgressBarAndError
@@ -45,6 +46,14 @@ fun FoodPage(foodViewModel: FoodViewModel) {
                     .fillMaxWidth()
                     .padding(top = 35.dp)
             )
+            state.otherInfo?.let {
+                CategoriesRow(
+                    categories = it.categories,
+                    modifier = Modifier
+                        .padding(top = 24.dp, start = 8.dp)
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 

@@ -50,7 +50,7 @@ fun DiscountImagesRow(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun DiscountImagesRowPreview() {
+private fun DiscountImagesRowPreview() {
     PizzaTheme {
         DiscountImagesRow(
             modifier = Modifier

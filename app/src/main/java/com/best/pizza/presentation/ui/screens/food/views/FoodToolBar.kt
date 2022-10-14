@@ -40,7 +40,7 @@ fun FoodToolBar(cityName: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun ToolBarPreview() {
+private fun ToolBarPreview() {
     PizzaTheme {
         FoodToolBar(
             cityName = "Moskow",
