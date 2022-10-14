@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.best.pizza.R
+import com.best.pizza.presentation.ui.theme.AppColors
+import com.best.pizza.presentation.ui.theme.AppTheme
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -42,7 +44,8 @@ private fun GetIconForBottomBar(screen: String, isSelected: Boolean = false) {
         DestinationsPage.FoodPage.name -> {
             Icon(
                 painter = painterResource(id = R.drawable.food_icon),
-                contentDescription = stringResource(R.string.food_description)
+                contentDescription = stringResource(R.string.food_description),
+                tint = if(isSelected) AppTheme.colors.tintColor else AppTheme.colors.bottomBarText
             )
         }
 
@@ -50,6 +53,7 @@ private fun GetIconForBottomBar(screen: String, isSelected: Boolean = false) {
             Icon(
                 painter = painterResource(id = R.drawable.person_icon),
                 contentDescription = stringResource(R.string.person_description),
+                tint = if(isSelected) AppTheme.colors.tintColor else AppTheme.colors.bottomBarText
             )
         }
 
@@ -57,6 +61,7 @@ private fun GetIconForBottomBar(screen: String, isSelected: Boolean = false) {
             Icon(
                 painter = painterResource(id = R.drawable.basket_icon),
                 contentDescription = stringResource(R.string.basket_description),
+                tint = if(isSelected) AppTheme.colors.tintColor else AppTheme.colors.bottomBarText
             )
         }
 
