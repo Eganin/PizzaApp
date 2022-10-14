@@ -1,5 +1,6 @@
 package com.best.pizza.presentation.ui.screens.food.views
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -7,6 +8,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,10 +27,14 @@ fun CategoriesRow(categories: List<String>, modifier: Modifier = Modifier) {
     LazyRow(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         categories.indices.forEach { i ->
             item {
-                if (i == 0) {
-                    CategoryCells(title = categories[i], isSelected = true)
+                if (i == categories.size - 1) {
+                    CategoryCells(
+                        title = categories[i],
+                        modifier = Modifier.padding(end = 16.dp),
+                        index = i
+                    )
                 } else {
-                    CategoryCells(title = categories[i], isSelected = false)
+                    CategoryCells(title = categories[i], index = i)
                 }
             }
         }
@@ -33,9 +42,18 @@ fun CategoriesRow(categories: List<String>, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CategoryCells(title: String, isSelected: Boolean) {
+fun CategoryCells(
+    title: String,
+    modifier: Modifier = Modifier,
+    index :Int
+) {
+    var isSelected by remember { mutableStateOf(index==0) }
     Card(
-        modifier = Modifier.padding(start = 8.dp),
+        modifier = modifier
+            .padding(start = 8.dp)
+            .clickable {
+                isSelected = !isSelected
+            },
         shape = RoundedCornerShape(5.dp),
         elevation = 10.dp,
         backgroundColor = if (isSelected) AppTheme.colors.secondaryBackground else Color.White
