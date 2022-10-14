@@ -29,7 +29,6 @@ fun DiscountImagesRow(modifier: Modifier = Modifier) {
                 contentDescription = stringResource(R.string.discount_image_description),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(start = 16.dp)
                     .defaultMinSize(minWidth = 300.dp, minHeight = 112.dp)
                     .width(300.dp)
                     .height(112.dp)
