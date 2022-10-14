@@ -20,14 +20,14 @@ internal class LocalDataSourceTest : TestData(){
     }
 
     @Test
-    fun `test get detail info for product if link is not empty`() = runTest {
+    fun `test get detail info for product if link is empty`() = runTest {
         assertThat(localDataSource.getDetailInfoProductFromDb(fetchFromRemote = false){""}).isEqualTo(
             testproductDetailsList
         )
     }
 
     @Test
-    fun `test get detail info for product if link is empty`() = runTest {
+    fun `test get detail info for product if link is not empty`() = runTest {
         assertThat(localDataSource.getDetailInfoProductFromDb(fetchFromRemote = false){"https://"}).isEqualTo(
             testproductDetailsList.map { it.copy(imageLink = "https://") })
     }

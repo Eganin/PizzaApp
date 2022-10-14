@@ -1,6 +1,9 @@
 package com.best.pizza.presentation.ui
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,31 +16,67 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val productsUseCases: ProductsUseCases
-) : ViewModel(){
-    init{
+) : ViewModel() {
+
+    var state by mutableStateOf(MainPageState())
+        private set
+
+    init {
+        /*
+        true-swipe refresh
+        false -default
+         */
+        downloadData(fetchFromRemote = false)
+    }
+
+    fun onEvent(event: MainPageEvent) {
+        when (event) {
+            is MainPageEvent.Refresh -> {
+                downloadData(fetchFromRemote = true)
+            }
+        }
+    }
+
+    private fun downloadData(fetchFromRemote: Boolean) {
         viewModelScope.launch {
-            /*
-            productsUseCases.getProductList(fetchFromRemote = true).collect{
-                if(it is Resource.Success){
-                    Log.d("EEE1",it.data.toString())
+            // load products
+            productsUseCases.getProductList(fetchFromRemote = fetchFromRemote).collect { result ->
+                wrapperForHandlerResource(result = result) {
+                    state = state.copy(productInfo = it, isLoading = false, error = null)
                 }
             }
 
-             */
-            /*
-            true-swipe refresh
-            false -default
-             */
-            productsUseCases.getProductList(fetchFromRemote = false).collect{
-                if(it is Resource.Success){
-                    Log.d("EEE2",(it.data == null).toString())
-                    Log.d("EEE2",it.data.toString())
+            //load otherInfo
+            productsUseCases.getOtherInfo().collect { result ->
+                wrapperForHandlerResource(result = result) {
+                    state = state.copy(otherInfo = it, isLoading = false, error = null)
                 }
             }
-            productsUseCases.getOtherInfo().collect{
-                if(it is Resource.Success){
-                    Log.d("EEE3",it.data.toString())
+        }
+    }
+
+    private fun <T> wrapperForHandlerResource(
+        result: Resource<T>,
+        onStateChangeSuccess: (T) -> Unit
+    ) {
+        when (result) {
+            is Resource.Success -> {
+                result.data?.let {
+                    onStateChangeSuccess(it)
                 }
+            }
+
+            is Resource.Error -> {
+                result.message?.let {
+                    state = state.copy(
+                        isLoading = false,
+                        error = it
+                    )
+                }
+            }
+
+            is Resource.Loading -> {
+                state = state.copy(isLoading = true)
             }
         }
     }

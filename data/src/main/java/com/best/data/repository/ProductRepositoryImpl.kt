@@ -1,12 +1,7 @@
 package com.best.data.repository
 
-import android.util.Log
 import com.best.data.datasource.LocalDataSource
 import com.best.data.datasource.RemoteDataSource
-import com.best.data.local.database.ProductDatabase
-import com.best.data.local.entities.ProductInfoEntity
-import com.best.data.mapper.toProductInfo
-import com.best.data.mapper.toProductInfoEntity
 import com.best.domain.models.OtherInfo
 import com.best.domain.models.ProductInfo
 import com.best.domain.repository.ProductRepository
