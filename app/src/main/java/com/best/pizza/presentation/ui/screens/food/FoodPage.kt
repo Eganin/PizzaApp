@@ -1,16 +1,9 @@
 package com.best.pizza.presentation.ui.screens.food
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -20,7 +13,6 @@ import com.best.pizza.presentation.ui.screens.food.views.DiscountImagesRow
 import com.best.pizza.presentation.ui.screens.food.views.FoodToolBar
 import com.best.pizza.presentation.ui.screens.food.views.ProductList
 import com.best.pizza.presentation.ui.screens.food.views.ProgressBarAndError
-import com.best.pizza.presentation.ui.theme.AppTheme
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import me.onebone.toolbar.CollapsingToolbarScaffold
@@ -28,7 +20,7 @@ import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
 @Composable
-fun FoodPage(foodViewModel: FoodViewModel) {
+internal fun FoodPage(foodViewModel: FoodViewModel) {
     LaunchedEffect(key1 = Unit) {
         foodViewModel.init()
     }
@@ -46,38 +38,36 @@ fun FoodPage(foodViewModel: FoodViewModel) {
             .fillMaxSize()
             .padding(bottom = 50.dp)
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            CollapsingToolbarScaffold(
-                state = rememberCollapsingToolbarScaffoldState(), // provide the state of the scaffold
-                toolbar = {
-                    DiscountImagesRow(
+        CollapsingToolbarScaffold(
+            state = rememberCollapsingToolbarScaffoldState(), // provide the state of the scaffold
+            toolbar = {
+                DiscountImagesRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 97.dp)
+                )
+                state.otherInfo?.let {
+                    FoodToolBar(
+                        cityName = it.cityName,
                         modifier = Modifier
+                            .padding(top = 42.dp, start = 16.dp, end = 16.dp)
                             .fillMaxWidth()
-                            .padding(top = 97.dp)
                     )
-                    state.otherInfo?.let {
-                        FoodToolBar(
-                            cityName = it.cityName,
-                            modifier = Modifier
-                                .padding(top = 42.dp, start = 16.dp, end = 16.dp)
-                                .fillMaxWidth()
-                        )
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                scrollStrategy = ScrollStrategy.ExitUntilCollapsed
-            ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    state.otherInfo?.let {
-                        CategoriesRow(
-                            categories = it.categories,
-                            modifier = Modifier
-                                .padding(top = 24.dp, start = 8.dp)
-                                .fillMaxWidth()
-                        )
-                    }
-                    ProductList(productInfo = state.productInfo, modifier = Modifier.fillMaxWidth())
                 }
+            },
+            modifier = Modifier.fillMaxSize(),
+            scrollStrategy = ScrollStrategy.ExitUntilCollapsed
+        ) {
+            Column(modifier = Modifier.fillMaxWidth().padding(top = 24.dp)) {
+                state.otherInfo?.let {
+                    CategoriesRow(
+                        categories = it.categories,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .fillMaxWidth()
+                    )
+                }
+                ProductList(productInfo = state.productInfo, modifier = Modifier.fillMaxWidth())
             }
         }
     }

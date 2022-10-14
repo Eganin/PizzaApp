@@ -19,7 +19,7 @@ import com.best.pizza.presentation.ui.theme.PizzaTheme
 import com.best.pizza.presentation.ui.theme.Typography
 
 @Composable
-fun FoodToolBar(cityName: String, modifier: Modifier = Modifier) {
+internal fun FoodToolBar(cityName: String, modifier: Modifier = Modifier) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = cityName, style = Typography.body1, color = AppTheme.colors.primaryText)

@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,7 +22,7 @@ import com.best.pizza.presentation.ui.theme.PizzaTheme
 import com.best.pizza.presentation.ui.theme.Typography
 
 @Composable
-fun CategoriesRow(categories: List<String>, modifier: Modifier = Modifier) {
+internal fun CategoriesRow(categories: List<String>, modifier: Modifier = Modifier) {
     LazyRow(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         categories.indices.forEach { i ->
             item {
@@ -42,7 +41,7 @@ fun CategoriesRow(categories: List<String>, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CategoryCells(
+private fun CategoryCells(
     title: String,
     modifier: Modifier = Modifier,
     index :Int
@@ -56,7 +55,7 @@ fun CategoryCells(
             },
         shape = RoundedCornerShape(5.dp),
         elevation = 10.dp,
-        backgroundColor = if (isSelected) AppTheme.colors.secondaryBackground else Color.White
+        backgroundColor = if (isSelected) AppTheme.colors.secondaryBackground else AppTheme.colors.primaryBackground
     ) {
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, start = 25.dp, end = 25.dp),

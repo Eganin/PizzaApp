@@ -32,19 +32,19 @@ internal open class TestData {
             imageLink = "",
             name = "Баварские колбаски",
             description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-            price = "345"
+            price = "445"
         ),
         ProductInfo(
             imageLink = "",
             name = "Нежный лосось",
             description = "Лосось, томаты, оливки,соус песто,помидорки черри",
-            price = "345"
+            price = "245"
         ),
         ProductInfo(
             imageLink = "",
             name = "Гастрономический экстаз",
             description = "Ветчина,грибы, увеличинная порция зелени, соус терияки",
-            price = "345"
+            price = "123"
         ),
         ProductInfo(
             imageLink = "",
@@ -56,19 +56,19 @@ internal open class TestData {
             imageLink = "",
             name = "Баварские колбаски",
             description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-            price = "345"
+            price = "445"
         ),
         ProductInfo(
             imageLink = "",
             name = "Нежный лосось",
             description = "Лосось, томаты, оливки,соус песто,помидорки черри",
-            price = "345"
+            price = "245"
         ),
         ProductInfo(
             imageLink = "",
             name = "Гастрономический экстаз",
             description = "Ветчина,грибы, увеличинная порция зелени, соус терияки",
-            price = "345"
+            price = "123"
         ),
     )
 

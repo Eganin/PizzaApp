@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-suspend fun <T> FlowCollector<Resource<T>>.bodyForDataLoading(blockResponse: suspend () -> T){
+internal suspend fun <T> FlowCollector<Resource<T>>.bodyForDataLoading(blockResponse: suspend () -> T){
     emit(Resource.Loading(isLoading = true))
     val response = try {
         withContext(Dispatchers.IO){

@@ -23,7 +23,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+internal class MainActivity : ComponentActivity() {
 
     private val foodViewModel: FoodViewModel by viewModels()
 
@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     color = AppTheme.colors.primaryBackground
                 ) {
                     Scaffold(
+                        modifier = Modifier.fillMaxSize(),
                         bottomBar = {
                             BottomBar(navController = navController)
                         }

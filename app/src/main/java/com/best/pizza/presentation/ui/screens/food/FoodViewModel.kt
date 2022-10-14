@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FoodViewModel @Inject constructor(
+internal class FoodViewModel @Inject constructor(
     private val productsUseCases: ProductsUseCases
 ) : ViewModel() {
 

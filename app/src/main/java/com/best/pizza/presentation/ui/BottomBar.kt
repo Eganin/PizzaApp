@@ -28,14 +28,14 @@ import com.best.pizza.presentation.ui.theme.PizzaTheme
 import com.best.pizza.presentation.ui.theme.Typography
 
 @Composable
-fun BottomBar(navController: NavController) {
+internal fun BottomBar(navController: NavController) {
     val bottomItems = listOf(
         DestinationsPage.FoodPage,
         DestinationsPage.PersonPage,
         DestinationsPage.BasketPage
     )
 
-    BottomNavigation(backgroundColor = Color.White) {
+    BottomNavigation(backgroundColor = AppTheme.colors.primaryBackground) {
         bottomItems.forEach { screen ->
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val isSelected = navBackStackEntry?.destination?.hierarchy

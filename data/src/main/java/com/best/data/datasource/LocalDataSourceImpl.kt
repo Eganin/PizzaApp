@@ -8,7 +8,7 @@ import com.best.domain.models.ProductInfo
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class LocalDataSourceImpl @Inject constructor(
+internal class LocalDataSourceImpl @Inject constructor(
     private val productInfoDao: ProductInfoDao
 ) : LocalDataSource {
 
@@ -23,19 +23,19 @@ class LocalDataSourceImpl @Inject constructor(
             id = 2,
             name = "Баварские колбаски",
             description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-            price = "345"
+            price = "445"
         ),
         ProductDetail(
             id = 3,
             name = "Нежный лосось",
             description = "Лосось, томаты, оливки,соус песто,помидорки черри",
-            price = "345"
+            price = "245"
         ),
         ProductDetail(
             id = 4,
             name = "Гастрономический экстаз",
             description = "Ветчина,грибы, увеличинная порция зелени, соус терияки",
-            price = "345"
+            price = "123"
         ),
         ProductDetail(
             id = 5,
@@ -47,19 +47,19 @@ class LocalDataSourceImpl @Inject constructor(
             id = 6,
             name = "Баварские колбаски",
             description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-            price = "345"
+            price = "445"
         ),
         ProductDetail(
             id = 7,
             name = "Нежный лосось",
             description = "Лосось, томаты, оливки,соус песто,помидорки черри",
-            price = "345"
+            price = "245"
         ),
         ProductDetail(
             id = 8,
             name = "Гастрономический экстаз",
             description = "Ветчина,грибы, увеличинная порция зелени, соус терияки",
-            price = "345"
+            price = "123"
         ),
     )
 

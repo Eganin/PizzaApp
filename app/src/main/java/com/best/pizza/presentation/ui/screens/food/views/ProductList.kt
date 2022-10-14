@@ -11,10 +11,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Snackbar
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +38,7 @@ import com.best.pizza.presentation.ui.theme.PizzaTheme
 import com.best.pizza.presentation.ui.theme.Typography
 
 @Composable
-fun ProductList(productInfo: List<ProductInfo>, modifier: Modifier = Modifier) {
+internal fun ProductList(productInfo: List<ProductInfo>, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
         productInfo.forEach {
             item { ProductCells(productInfo = it, modifier = modifier) }
@@ -40,12 +48,17 @@ fun ProductList(productInfo: List<ProductInfo>, modifier: Modifier = Modifier) {
 
 @Composable
 private fun ProductCells(productInfo: ProductInfo, modifier: Modifier = Modifier) {
+
+    var snackBarVisibleState by remember { mutableStateOf(false) }
+
     Column(modifier = modifier) {
         Row(modifier = modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
-                model = productInfo.imageLink,
+                model = productInfo.imageLink.ifEmpty { R.drawable.food_icon },
                 contentDescription = null,
-                modifier = Modifier.size(135.dp).clip(CircleShape),
+                modifier = Modifier
+                    .size(135.dp)
+                    .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.width(22.dp))
@@ -63,10 +76,13 @@ private fun ProductCells(productInfo: ProductInfo, modifier: Modifier = Modifier
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedButton(
-                    onClick = {},
+                    onClick = {
+                        snackBarVisibleState = !snackBarVisibleState
+                    },
                     modifier = Modifier.align(Alignment.End),
                     shape = RoundedCornerShape(10.dp),
-                    border = BorderStroke(width = 1.dp, color = AppTheme.colors.tintColor)
+                    border = BorderStroke(width = 1.dp, color = AppTheme.colors.tintColor),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = AppTheme.colors.primaryBackground)
                 ) {
                     Text(
                         text = stringResource(R.string.suffix_price)
@@ -77,6 +93,32 @@ private fun ProductCells(productInfo: ProductInfo, modifier: Modifier = Modifier
                         modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp)
                     )
                 }
+            }
+        }
+        if (snackBarVisibleState) {
+            Snackbar(
+                backgroundColor = AppTheme.colors.secondaryBackground,
+                action = {
+                    Button(
+                        onClick = {
+                            snackBarVisibleState = !snackBarVisibleState
+                        },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = AppTheme.colors.primaryBackground)
+                    ) {
+                        Text(
+                            stringResource(R.string.ok_text),
+                            style = Typography.body2,
+                            color = AppTheme.colors.primaryText
+                        )
+                    }
+                },
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.not_sale_snackbar_message),
+                    style = Typography.body2,
+                    color = AppTheme.colors.primaryText
+                )
             }
         }
         Spacer(modifier = modifier.height(16.dp))

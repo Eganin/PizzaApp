@@ -11,7 +11,7 @@ import com.best.data.local.entities.ProductInfoEntity
     ],
     version = 1
 )
-abstract class ProductDatabase : RoomDatabase(){
+internal abstract class ProductDatabase : RoomDatabase(){
 
     abstract val productInfoDao: ProductInfoDao
 

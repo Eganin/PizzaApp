@@ -15,7 +15,7 @@ import com.best.pizza.presentation.ui.theme.PizzaTheme
 import com.best.pizza.presentation.ui.theme.Typography
 
 @Composable
-fun ProgressBarAndError(state: FoodPageState) {
+internal fun ProgressBarAndError(state: FoodPageState) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

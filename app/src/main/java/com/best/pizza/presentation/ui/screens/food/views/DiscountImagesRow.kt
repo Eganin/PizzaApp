@@ -21,7 +21,7 @@ import com.best.pizza.R
 import com.best.pizza.presentation.ui.theme.PizzaTheme
 
 @Composable
-fun DiscountImagesRow(modifier: Modifier = Modifier) {
+internal fun DiscountImagesRow(modifier: Modifier = Modifier) {
     LazyRow(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         item {
             Image(
@@ -40,7 +40,7 @@ fun DiscountImagesRow(modifier: Modifier = Modifier) {
                 contentDescription = stringResource(R.string.discount_image_description),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(start = 16.dp,end=16.dp)
+                    .padding(end=16.dp)
                     .defaultMinSize(minWidth = 290.dp, minHeight = 102.dp)
                     .width(290.dp)
                     .height(102.dp)

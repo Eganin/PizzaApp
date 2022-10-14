@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.best.data.local.entities.ProductInfoEntity
 
 @Dao
-interface ProductInfoDao {
+internal interface ProductInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProductInfo(productInfoEntities: List<ProductInfoEntity>)
