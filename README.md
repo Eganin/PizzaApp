@@ -14,4 +14,4 @@
 
 ## :camera_flash: Screenshots
 <img src="/assets/pizza_app_light.png" width="260">&emsp;
-<img src="/assets/pizza_app_light.png" width="260">&emsp;
+<img src="/assets/pizza_app_dark.png" width="260">&emsp;
