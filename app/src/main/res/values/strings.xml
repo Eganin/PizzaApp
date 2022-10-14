@@ -3,4 +3,9 @@
     <string name="food_description">Food</string>
     <string name="person_description">Person</string>
     <string name="basket_description">Basket</string>
+    <string name="arrow_down">Arrow down</string>
+    <string name="qr_code">Qr code</string>
+    <string name="menu">Меню</string>
+    <string name="profile">Профиль</string>
+    <string name="basket">Корзина</string>
 </resources>

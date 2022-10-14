@@ -7,18 +7,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.best.pizza.presentation.ui.screens.food.FoodPage
+import com.best.pizza.presentation.ui.screens.food.FoodViewModel
 import com.best.pizza.presentation.ui.theme.AppTheme
 import com.best.pizza.presentation.ui.theme.PizzaTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -27,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val mainViewModel: MainViewModel by viewModels()
+    private val foodViewModel: FoodViewModel by viewModels()
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +58,7 @@ class MainActivity : ComponentActivity() {
                                 .background(AppTheme.colors.primaryBackground)
                         ) {
                             composable(DestinationsPage.FoodPage.name){
-
+                                FoodPage(foodViewModel = foodViewModel)
                             }
                             composable(DestinationsPage.PersonPage.name){
 
@@ -73,18 +71,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PizzaTheme {
-        Greeting("Android")
     }
 }

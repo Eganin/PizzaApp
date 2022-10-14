@@ -9,6 +9,8 @@ import com.best.domain.usecase.GetProductList
 import com.best.domain.usecase.ProductsUseCases
 import com.best.domain.util.Resource
 import com.best.pizza.MainCoroutineRule
+import com.best.pizza.presentation.ui.screens.food.FoodPageEvent
+import com.best.pizza.presentation.ui.screens.food.FoodViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -19,8 +21,8 @@ import org.junit.Test
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal class MainViewModelTest {
-    private var viewModel: MainViewModel? = null
+internal class FoodViewModelTest {
+    private var viewModel: FoodViewModel? = null
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -31,7 +33,7 @@ internal class MainViewModelTest {
 
     private fun createViewModel(state: State) {
         val testRepository = TestRepository(state = state)
-        viewModel = MainViewModel(
+        viewModel = FoodViewModel(
             productsUseCases = ProductsUseCases(
                 getProductList = GetProductList(repository = testRepository),
                 getOtherInfo = GetOtherInfo(repository = testRepository)
@@ -68,7 +70,7 @@ internal class MainViewModelTest {
     @Test
     fun `test swipe refresh success loading data`(){
         createViewModel(state = State.SUCCESS)
-        viewModel?.onEvent(event = MainPageEvent.Refresh)
+        viewModel?.onEvent(event = FoodPageEvent.Refresh)
         val productInfo = viewModel?.state?.productInfo
         val otherInfo = viewModel?.state?.otherInfo
         assertThat(productInfo).isNotEmpty()
@@ -80,7 +82,7 @@ internal class MainViewModelTest {
     @Test
     fun `test swipe refresh error loading data`(){
         createViewModel(state = State.ERROR)
-        viewModel?.onEvent(event = MainPageEvent.Refresh)
+        viewModel?.onEvent(event = FoodPageEvent.Refresh)
         assertThat(viewModel?.state?.error).isNotEmpty()
         assertThat(viewModel?.state?.isLoading).isFalse()
     }

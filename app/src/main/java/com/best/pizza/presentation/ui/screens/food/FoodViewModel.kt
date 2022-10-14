@@ -1,4 +1,4 @@
-package com.best.pizza.presentation.ui
+package com.best.pizza.presentation.ui.screens.food
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,20 +12,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class FoodViewModel @Inject constructor(
     private val productsUseCases: ProductsUseCases
 ) : ViewModel() {
 
-    var state by mutableStateOf(MainPageState())
+    var state by mutableStateOf(FoodPageState())
         private set
 
     fun init() {
         downloadData(fetchFromRemote = false)
     }
 
-    fun onEvent(event: MainPageEvent) {
+    fun onEvent(event: FoodPageEvent) {
         when (event) {
-            is MainPageEvent.Refresh -> {
+            is FoodPageEvent.Refresh -> {
                 downloadData(fetchFromRemote = true)
             }
         }
