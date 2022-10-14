@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.best.pizza.presentation.ui.screens.food.views.DiscountImagesRow
 import com.best.pizza.presentation.ui.screens.food.views.FoodToolBar
 import com.best.pizza.presentation.ui.screens.food.views.ProgressBarAndError
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -39,6 +40,11 @@ fun FoodPage(foodViewModel: FoodViewModel) {
                         .fillMaxWidth()
                 )
             }
+            DiscountImagesRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 35.dp)
+            )
         }
     }
 
